@@ -6,6 +6,7 @@ package utils;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import service.StudentRule;
 
 /**
  *
@@ -14,12 +15,18 @@ import java.util.Scanner;
 public class Validation {
 
     private final Scanner SCANNER = new Scanner(System.in);
+    private final StudentRule studentRule;
+
+    public Validation(StudentRule studentRule) {
+        this.studentRule = studentRule;
+    }
 
     /**
-     *  Check the Id entered from the keyboard
+     * Check the Id entered from the keyboard
+     *
      * @param msg: message to display prompts the user for input
-     * @param idRule: Rules for student IDs. Includes prefixes for different student types.
-     * format
+     * @param idRule: Rules for student IDs. Includes prefixes for different
+     * student types. format
      * @return : return a valid id input by user
      */
     public String validateId(String msg, String[] idRule) {
@@ -33,7 +40,7 @@ public class Validation {
                     throw new IllegalArgumentException("Error: Id is empty!");
                 }
                 for (String prefixId : idRule) {
-                    if (input.startsWith(prefixId) && input.matches(prefixId+"[0-9]{6}")) {
+                    if (input.startsWith(prefixId) && input.matches(prefixId + "[0-9]{6}")) {
                         return input;
                     }
                 }
@@ -46,18 +53,19 @@ public class Validation {
     }
 
     /**
-     *  Check the student name entered from the keyboard
+     * Check the student name entered from the keyboard
+     *
      * @param msg: message to display prompts the user for input
      * @return : return a valid student name input
      */
-    public String validateStudentName(String msg) {
+    public String validateStudentName(String msg, int mode) {
         // input: User enters student name from keyboard;
         String input;
         while (true) {
             try {
                 System.out.print(msg);
                 input = SCANNER.nextLine();
-                if (input == null || input.trim().isEmpty()) {
+                if ((input == null || input.trim().isEmpty()) && mode == 1) {
                     throw new IllegalArgumentException("Error: Student name is empty!");
                 }
                 if (input.matches("^[0-9]+$")) {
@@ -70,7 +78,7 @@ public class Validation {
                     return input;
                 }
                 throw new IllegalArgumentException("Error: Semester is not correct format! \n"
-                                                  +"Please enter a student name consisting of only letters [A-Z] and [a-z] and space");
+                        + "Please enter a student name consisting of only letters [A-Z] and [a-z] and space");
             } catch (IllegalArgumentException e) {
                 System.err.println(e.getMessage());
             }
@@ -78,49 +86,54 @@ public class Validation {
     }
 
     /**
-     *  Check the semester entered from the keyboard
+     * Check the semester entered from the keyboard
+     *
      * @param msg: message to display prompts user for input
-     * @param semesterRule:  Rules for semesters. Includes prefixes for different semester.
+     * @param semesterRule: Rules for semesters. Includes prefixes for different
+     * semester.
      * @return : return a valid semester input
      */
-    public String validateSemester(String msg, String[] semesterRule) {
+    public String validateSemester(String msg, String[] semesterRule, int mode) {
         // input: User enters semester from keyboard
         String input;
         while (true) {
             try {
                 System.out.print(msg);
                 input = SCANNER.nextLine();
-                if (input == null || input.trim().isEmpty()) {
+                if ((input == null || input.trim().isEmpty()) && mode == 1) {
                     throw new IllegalArgumentException("Error: Semester is empty!");
                 }
                 for (String prefixSemester : semesterRule) {
-                    if (input.startsWith(prefixSemester) && input.matches(prefixSemester+"[0-9]{4}")){
+                    if (input.startsWith(prefixSemester) && input.matches(prefixSemester + "[0-9]{4}")) {
                         return input;
                     }
-                    if (input.startsWith(prefixSemester)) System.out.println(input);
+                    if (input.startsWith(prefixSemester)) {
+                        System.out.println(input);
+                    }
                 }
                 throw new IllegalArgumentException("Error: Semester is not correct format! \n"
-                                                 + "Please enter course name in " + Arrays.toString(semesterRule) + "XXXX with X is a digit");
+                        + "Please enter course name in " + Arrays.toString(semesterRule) + "XXXX with X is a digit");
             } catch (IllegalArgumentException e) {
                 System.err.println(e.getMessage());
             }
         }
     }
-    
+
     /**
-     *  Check the course name entered from the keyboard
+     * Check the course name entered from the keyboard
+     *
      * @param msg: message to display prompts user for input
      * @param courseNameOption: List of course names available in the system.
      * @return: return a valid course name input
      */
-    public String validateCourseName(String msg, String[] courseNameOption) {
+    public String validateCourseName(String msg, String[] courseNameOption, int mode) {
         // input: user input course name from keyboard
         String input;
         while (true) {
             try {
                 System.out.print(msg);
                 input = SCANNER.nextLine();
-                if (input == null || input.trim().isEmpty()){
+                if ((input == null || input.trim().isEmpty()) && mode == 1) {
                     throw new IllegalArgumentException("Error: Course name is empty!");
                 }
                 for (String courseName : courseNameOption) {
@@ -129,22 +142,23 @@ public class Validation {
                     }
                 }
                 throw new IllegalArgumentException("Error: Course name is not exist! \n"
-                                                  +"Please enter course name in " + Arrays.toString(courseNameOption));
+                        + "Please enter course name in " + Arrays.toString(courseNameOption));
             } catch (IllegalArgumentException e) {
                 System.err.println(e.getMessage());
             }
         }
     }
-    
+
     /**
      * check the selection entered from the keyboard
+     *
      * @param msg: message to display prompts user for input
      * @param firstOption: first option for user
      * @param secondOption: second option for user
      * @param err: message to display errs and conditions
-     * @return 
+     * @return
      */
-    public  boolean validateConfirm(String msg, String err, String firstOption, String secondOption){
+    public boolean validateConfirm(String msg, String err, String firstOption, String secondOption) {
         // input: user input selection from keyboard
         String input;
         while (true) {
@@ -166,7 +180,8 @@ public class Validation {
     }
 
     /**
-     *  Check if input is an integer from min to max
+     * Check if input is an integer from min to max
+     *
      * @param msg: message to display prompts the user for input
      * @param min: the smallest value of the input
      * @param max: the maximum value of the input

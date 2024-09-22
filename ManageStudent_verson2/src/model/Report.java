@@ -8,25 +8,26 @@ package model;
  *
  * @author Admin
  */
-public class Student {
-    private String id;
+public class Report {
+
+    private String studentId;
     private String studentName;
-    private String semester;
     private String courseName;
+    private int courseTotal;
 
-    public Student(String id, String studentName, String semester, String courseName) {
-        this.id = id;
+    public Report(String studentId, String studentName, String courseName, int courseTotal) {
+        this.studentId = studentId;
         this.studentName = studentName;
-        this.semester = semester;
         this.courseName = courseName;
+        this.courseTotal = courseTotal;
+    }
+    
+    public String getStudentId() {
+        return studentId;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setStudentId(String id) {
+        this.studentId = id;
     }
 
     public String getStudentName() {
@@ -37,14 +38,6 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
-
     public String getCourseName() {
         return courseName;
     }
@@ -53,9 +46,17 @@ public class Student {
         this.courseName = courseName;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%-20s | %-20s | %-20s | %-20s", id, studentName, semester, courseName);
+    public int getCourseTotal() {
+        return courseTotal;
+    }
+
+    public void setCourseTotal(int courseTotal) {
+        this.courseTotal = courseTotal;
     }
     
+    
+    @Override
+    public String toString() {
+        return String.format("%-20s | %-20s | %-4d", studentName, courseName, courseTotal);
+    }
 }
