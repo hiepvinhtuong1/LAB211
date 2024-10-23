@@ -6,7 +6,6 @@ package utils;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import service.StudentRule;
 
 /**
  *
@@ -67,6 +66,8 @@ public class Validation {
                 input = SCANNER.nextLine();
                 if ((input == null || input.trim().isEmpty()) && mode == 1) {
                     throw new IllegalArgumentException("Error: Student name is empty!");
+                } else if (mode == 2) {
+                    return input;
                 }
                 if (input.matches("^[0-9]+$")) {
                     throw new IllegalArgumentException("Error: Student name contains numbers!");
@@ -77,7 +78,7 @@ public class Validation {
                 if (input.matches("^[A-Za-z ]+$")) {
                     return input;
                 }
-                throw new IllegalArgumentException("Error: Semester is not correct format! \n"
+                throw new IllegalArgumentException("Error: Student name is not correct format! \n"
                         + "Please enter a student name consisting of only letters [A-Z] and [a-z] and space");
             } catch (IllegalArgumentException e) {
                 System.err.println(e.getMessage());
@@ -102,6 +103,8 @@ public class Validation {
                 input = SCANNER.nextLine();
                 if ((input == null || input.trim().isEmpty()) && mode == 1) {
                     throw new IllegalArgumentException("Error: Semester is empty!");
+                } else if (mode == 2) {
+                    return input;
                 }
                 for (String prefixSemester : semesterRule) {
                     if (input.startsWith(prefixSemester) && input.matches(prefixSemester + "[0-9]{4}")) {
@@ -124,6 +127,8 @@ public class Validation {
      *
      * @param msg: message to display prompts user for input
      * @param courseNameOption: List of course names available in the system.
+     * @param mode: mode == 1 for creating, courseName not null or empty
+     *              mode == 2 for updating, courseName can be null or empty
      * @return: return a valid course name input
      */
     public String validateCourseName(String msg, String[] courseNameOption, int mode) {
@@ -135,6 +140,8 @@ public class Validation {
                 input = SCANNER.nextLine();
                 if ((input == null || input.trim().isEmpty()) && mode == 1) {
                     throw new IllegalArgumentException("Error: Course name is empty!");
+                } else if (mode == 2) {
+                    return input;
                 }
                 for (String courseName : courseNameOption) {
                     if (input.equals(courseName)) {

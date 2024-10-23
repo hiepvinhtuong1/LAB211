@@ -6,7 +6,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import service.StudentRule;
+import utils.StudentRule;
 
 /**
  *
@@ -16,7 +16,7 @@ public class StudentHandle {
 
     public StudentHandle() {
     }
-    
+
     private final List<Student> studentList = new ArrayList<>();
 
     public List<Student> getAllStudents() {
@@ -34,7 +34,7 @@ public class StudentHandle {
 
     public List<Student> getListStudentById(String id) {
         List<Student> listStudentById = new ArrayList<>();
-        for (Student student : listStudentById) {
+        for (Student student : studentList) {
             if (student.getId().equals(id)) {
                 listStudentById.add(student);
             }
@@ -55,16 +55,14 @@ public class StudentHandle {
         return listStudentByName;
     }
 
-    // CRUD operations on studentList
     public void addStudent(Student student) {
         studentList.add(student);
     }
 
-    public void updateStudent(Student student) {
-        Student studentToUpdate = getStudentById(student.getId());
-        studentToUpdate.setStudentName(student.getStudentName());
-        studentToUpdate.setSemester(student.getSemester());
-        studentToUpdate.setCourseName(student.getCourseName());
+    public void updateStudent(Student studentToUpdate, Student newStudent) {
+        studentToUpdate.setStudentName(newStudent.getStudentName());
+        studentToUpdate.setSemester(newStudent.getSemester());
+        studentToUpdate.setCourseName(newStudent.getCourseName());
     }
 
     public void updateStudentName(String studentId, String studentName) {
@@ -85,10 +83,9 @@ public class StudentHandle {
             return true;
         }
 
-        if (!checkNameStudnet(
-                studentInList.getStudentName(),
-                studentNeedToCheck.getCourseName()
-        )) {
+        if (!checkNameStudnet(studentInList.getStudentName(), studentNeedToCheck.getStudentName())) {
+
+            System.out.println(checkNameStudnet(studentInList.getStudentName(), studentNeedToCheck.getCourseName()));
             throw new IllegalArgumentException("Error: The name does not match the name of the corresponding id");
         }
 

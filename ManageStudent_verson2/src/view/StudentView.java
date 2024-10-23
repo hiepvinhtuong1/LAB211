@@ -16,7 +16,7 @@ public class StudentView {
 
     public StudentView() {
     }
-    
+
     private final String[] optionForUser = {
         "Create",
         "Find and Sort",
@@ -35,14 +35,15 @@ public class StudentView {
             System.out.println((i + 1) + ". " + optionForUser[i]);
         }
     }
-    
+
     public void showMessage(String message) {
         System.out.println(message);
     }
-    
+
     public void showError(String error) {
         System.err.println(error);
     }
+
     public void showStudent(Student student) {
         System.out.println(student.toString());
     }
@@ -58,7 +59,7 @@ public class StudentView {
             System.out.println((i + 1) + ". " + courseNameList.get(i));
         }
     }
-    
+
     public void showListOfReport(List<Report> reportList) {
         for (Report report : reportList) {
             System.out.println(report.toString());

@@ -12,16 +12,17 @@ import java.util.List;
  * @author Admin
  */
 public class ReportHandle {
-    
+
     private final List<Report> reportList = new ArrayList<>();
 
     public ReportHandle() {
-    } 
+    }
+
     public List<Report> getAllReports() {
         return new ArrayList<>(reportList);
     }
-    
-    public List<Report> getListReportByStudentId(String studentId){
+
+    public List<Report> getListReportByStudentId(String studentId) {
         List<Report> listReportById = new ArrayList<>();
         for (Report report : reportList) {
             if (report.getStudentId().equals(studentId)) {
@@ -30,7 +31,7 @@ public class ReportHandle {
         }
         return listReportById;
     }
-    
+
     public Report getReportByStudentIdAndCourseName(String studentId, String courseName) {
         for (Report report : reportList) {
             if (report.getStudentId().equals(studentId) && report.getCourseName().equals(courseName)) {
@@ -44,10 +45,6 @@ public class ReportHandle {
         reportList.add(report);
     }
 
-    public void updateReport(Report report) {
-
-    }
-
     public void updateStudentName(String studentId, String studentName) {
         List<Report> listReportById = getListReportByStudentId(studentId);
         for (Report report : listReportById) {
@@ -56,13 +53,16 @@ public class ReportHandle {
     }
 
     public void deleteReport(Report report) {
+        reportList.remove(report);
     }
 
     public void increseaCourse(Report report) {
+        System.out.println("New report: " + report.getCourseName());
         report.setCourseTotal(report.getCourseTotal() + 1);
     }
 
     public void decreaseCourse(Report report) {
+        System.out.println("Old report: " + report.getCourseName());
         report.setCourseTotal(report.getCourseTotal() - 1);
     }
 }
